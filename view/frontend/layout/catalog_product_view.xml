@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <referenceContainer name="product.info.price">
+        <block name="lcb_omnibusdirective" template="LCB_OmnibusDirective::catalog/product/view/lowest_price_info.phtml" after="product.info.price">
+            <arguments>
+                <argument name="lowest_price" xsi:type="object">LCB\OmnibusDirective\ViewModel\LowestPriceProvider</argument>
+            </arguments>
+        </block>
+    </referenceContainer>
+</layout>

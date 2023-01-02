@@ -1,0 +1,26 @@
+{
+    "name": "lcbrq/magento2-omnibus-directive",
+    "description": "Omnibus Directive module for Magento2",
+    "require": {
+        "php": ">=7.4.0",
+        "magento/framework": ">=100.0.0",
+        "magento/magento-composer-installer": "*"
+    },
+    "authors": [
+        {
+            "name": "Silpion Tomasz Gregorczyk",
+            "email": "tomasz@silpion.com.pl"
+        }
+    ],
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "LCB\\OmnibusDirective\\": ""
+        }
+    }
+}

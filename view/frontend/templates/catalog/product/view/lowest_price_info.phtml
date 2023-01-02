@@ -1,0 +1,18 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \LCB\OmnibusDirective\ViewModel\LowestPriceProvider $provider
+ */
+$provider = $block->getLowestPrice();
+if ($provider->canShowPrice()):
+    $lowestPriceModel = $provider->getLowestPriceModel();
+    $formattedPrice = $provider->formatPrice($lowestPriceModel->getPrice());
+    ?>
+    <div>
+        <?=/* @noEscape */ __('Lowest price of the last 30 days: %1', $formattedPrice) ?>
+        <span title="<?= $escaper->escapeHtml(__('Price as of %1', $lowestPriceModel->getCreatedAt())) ?>"
+              style="cursor: pointer">&#9432;</span>
+    </div>
+
+<?php endif; ?>
