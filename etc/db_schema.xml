@@ -7,6 +7,6 @@
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
-        </constraint>           
+        </constraint>
     </table>
 </schema>
