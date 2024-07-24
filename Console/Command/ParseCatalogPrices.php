@@ -82,6 +82,8 @@ class ParseCatalogPrices extends Command
 
         $lowestPriceData = [];
         $lowestPriceCollection = $this->lowestPriceFactory->create()->getCollection();
+        $lowestPriceCollection->addFieldToFilter('created_at', ['gteq' => date('Y-m-d H:i:s', strtotime('-1 month'))]);
+
         foreach ($lowestPriceCollection as $lowestPriceEntry) {
             $lowestPriceData[$lowestPriceEntry->getSku()] = (float) $lowestPriceEntry->getPrice();
         }
