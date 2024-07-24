@@ -19,7 +19,6 @@ use Magento\Framework\View\Element\Block\ArgumentInterface;
  */
 class LowestPriceProvider implements ArgumentInterface
 {
-
     /**
      * @var CatalogHelper
      */

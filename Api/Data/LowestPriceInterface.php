@@ -13,7 +13,6 @@ use Magento\Framework\Api\ExtensibleDataInterface;
  */
 interface LowestPriceInterface extends ExtensibleDataInterface
 {
-
     /**
      * @var string
      */

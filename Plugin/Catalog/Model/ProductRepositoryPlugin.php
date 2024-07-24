@@ -15,7 +15,6 @@ use Magento\Catalog\Model\ProductRepository;
  */
 class ProductRepositoryPlugin
 {
-
     /**
      * @var LowestPriceFactory
      */
