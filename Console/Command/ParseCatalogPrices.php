@@ -94,12 +94,12 @@ class ParseCatalogPrices extends Command
         foreach ($productsCollection as $product) {
             try {
                 $sku = $product->getSku();
-
                 $finalPrice = (float) $product->getPriceInfo()->getPrice('final_price')->getValue();
                 if (!isset($lowestPriceData[$sku]) || $lowestPriceData[$sku] > $finalPrice) {
-                    $newEntry = $this->lowestPriceFactory->create()->load($sku, 'sku');
+                    $newEntry = $this->lowestPriceFactory->create();
                     $newEntry->setSku($sku);
                     $newEntry->setPrice($finalPrice);
+                    $newEntry->setCreatedAt(date('Y-m-d H:i', time()));
                     $newEntry->save();
                 }
 
@@ -114,4 +114,5 @@ class ParseCatalogPrices extends Command
 
         return Cli::RETURN_SUCCESS;
     }
+
 }

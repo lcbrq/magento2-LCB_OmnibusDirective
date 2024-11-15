@@ -66,7 +66,16 @@ class LowestPriceProvider implements ArgumentInterface
      */
     public function getLowestPriceModel(): LowestPrice
     {
-        return $this->lowestPriceFactory->create()->load($this->getProduct()->getSku(), 'sku');
+        $product = $this->getProduct();
+        $currentPrice = (float) $this->getProduct()->getPriceInfo()->getPrice(FinalPrice::PRICE_CODE)->getValue();
+
+        return $this->lowestPriceFactory->create()
+                   ->getCollection()
+                   ->addFieldToFilter('created_at', ['gteq' => date('Y-m-d H:i:s', strtotime('-1 month'))])
+                   ->addFieldToFilter('sku', $product->getSku())
+                   ->addFieldToFilter('price', ['gt' => $currentPrice])
+                   ->setOrder('price', 'DESC')
+                   ->getLastItem();
     }
 
     /**
@@ -76,6 +85,7 @@ class LowestPriceProvider implements ArgumentInterface
      */
     public function canShowPrice(): bool
     {
+
         return (float) $this->getProduct()->getPriceInfo()->getPrice(FinalPrice::PRICE_CODE)->getValue()
                 < (float) $this->getProduct()->getPrice()
                 && $this->getLowestPriceModel()->getPrice();
