@@ -73,7 +73,6 @@ class LowestPriceProvider implements ArgumentInterface
                    ->getCollection()
                    ->addFieldToFilter('created_at', ['gteq' => date('Y-m-d H:i:s', strtotime('-1 month'))])
                    ->addFieldToFilter('sku', $product->getSku())
-                   ->addFieldToFilter('price', ['gt' => $currentPrice])
                    ->setOrder('price', 'DESC')
                    ->getLastItem();
     }
