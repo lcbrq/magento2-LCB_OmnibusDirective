@@ -69,12 +69,32 @@ class LowestPriceProvider implements ArgumentInterface
         $product = $this->getProduct();
         $currentPrice = (float) $this->getProduct()->getPriceInfo()->getPrice(FinalPrice::PRICE_CODE)->getValue();
 
-        return $this->lowestPriceFactory->create()
-                   ->getCollection()
-                   ->addFieldToFilter('created_at', ['gteq' => date('Y-m-d H:i:s', strtotime('-1 month'))])
-                   ->addFieldToFilter('sku', $product->getSku())
-                   ->setOrder('price', 'DESC')
-                   ->getLastItem();
+        $lowestPriceModel = $this->lowestPriceFactory->create()
+               ->getCollection()
+               ->addFieldToFilter('sku', $product->getSku())
+               ->setOrder('created_at', 'DESC')
+               ->getFirstItem();
+
+        if ($lowestPriceModel->getId() && (float) $lowestPriceModel->getPrice() !== $currentPrice) {
+            $lowestPriceModel = $this->lowestPriceFactory->create()
+                ->setSku($product->getSku())
+                ->setPrice($currentPrice)
+                ->setCreatedAt(date('Y-m-d H:i:s'), time());
+        }
+
+        if ($lastPriceEntryCreatedAt = $lowestPriceModel->getCreatedAt()) {
+            $collection = $this->lowestPriceFactory->create()
+                ->getCollection()
+                ->addFieldToFilter('entity_id', ['neq' => $lowestPriceModel->getId()])
+                ->addFieldToFilter('created_at', ['gteq' => date('Y-m-d H:i:s', strtotime($lastPriceEntryCreatedAt) - 2629743)])
+                ->addFieldToFilter('sku', $product->getSku());
+
+            $collection->getSelect()->order('price DESC');
+            $lowestPriceModel = $collection->getLastItem();
+        }
+
+        return $lowestPriceModel;
+
     }
 
     /**

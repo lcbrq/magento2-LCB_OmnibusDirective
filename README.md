@@ -1,10 +1,10 @@
 ## OmnibusDirective addon for Magento 2
 
-### Version `1.0.3`
+### Version `1.1.0`
 
 Made in hurry as we were not able to find extension that respects both special and catalog price rules
 
-At the moment only method to update historical prices is running the command in CLI
+At the moment the best method to update historical prices is running the command in CLI
 
 ```bin/magento lcb:omnibus:parse:catalog```
 
