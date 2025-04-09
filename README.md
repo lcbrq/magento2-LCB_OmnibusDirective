@@ -1,6 +1,6 @@
 ## OmnibusDirective addon for Magento 2
 
-### Version `1.1.0`
+### Version `1.1.1`
 
 Made in hurry as we were not able to find extension that respects both special and catalog price rules
 
